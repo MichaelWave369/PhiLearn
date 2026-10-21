@@ -1,5 +1,5 @@
 import {describe,expect,it} from 'vitest';
-import {LESSONS,type TeachingReceipt} from './teaching';
+import {LESSONS} from './teaching';
 import {PROBES,VAULT_VERSION,packetStatus,type SkillPacket} from './vault';
 import {TASKS_R3} from './retrieval';
 import {
