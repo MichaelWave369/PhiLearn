@@ -14,7 +14,7 @@ jobs:
           node-version: '22'
       - run: npm install --no-audit --no-fund
       - run: npm test
-      - run: node --test interop/skill-passport-verifier.test.mjs
+      - run: node --test interop/skill-passport-verifier.node-check.mjs
       - run: node --check interop/verify-passport.mjs
       - run: npm run build
         env:
