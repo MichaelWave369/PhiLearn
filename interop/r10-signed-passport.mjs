@@ -23,7 +23,7 @@ const msg=(issuerId,keyId,signedAt,payloadHash)=>
 const failed=(status,reason)=>({status,signatureValid:false,sourceReplayConsistent:false,
   keyPinned:false,operatorReview:'NOT_GRANTED',authority:'NONE',permissions:[],actionAllowed:false,reason});
 function spki(publicKey){
-  const key=createPublicKey(publicKey);
+  const key=publicKey?.type==='public'?publicKey:createPublicKey(publicKey);
   if(key.asymmetricKeyType!=='ed25519')throw Error('Only Ed25519 signing keys are supported.');
   return key.export({format:'der',type:'spki'});
 }
