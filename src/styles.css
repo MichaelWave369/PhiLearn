@@ -244,3 +244,31 @@
 .cert-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}
 @media(max-width:800px){.cert-support-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:500px){.cert-support-grid{grid-template-columns:1fr}.cert-receipt{padding:14px}.cert-hash{align-items:flex-start;flex-direction:column}}
+
+
+/* R8: portable passive Skill Passport and quarantine */
+.passport-page{min-width:0}.passport-ledger{margin-top:18px}
+.passport-facts{display:flex;flex-direction:column;gap:9px;margin:17px 0;padding:16px;background:#11192d;border:1px solid #ffffff1c;border-radius:11px;font-size:11px;color:#acb8d3;line-height:1.65;overflow-wrap:anywhere}
+.passport-facts strong{color:#e9e1f8}
+.passport-facts code{font-size:10px;overflow-wrap:anywhere;word-break:break-all}
+.passport-file-label{display:flex;gap:12px;align-items:center;justify-content:center;border:1px dashed #9f84da87;border-radius:11px;background:#24213d;padding:18px;margin-top:18px;cursor:pointer;color:#e4dbfa;font-weight:700;font-size:12px}
+.passport-file-label:hover{background:#32284c}
+.passport-file-input{display:block;width:100%;margin:10px 0 16px;color:#acb2cd;line-height:1.6;font-size:11px}
+.passport-file-input::file-selector-button{padding:8px 11px;border:1px solid #ffffff30;border-radius:7px;background:#1d2540;color:#f0e9fd;cursor:pointer;margin-right:10px}
+.passport-boundaries{display:grid;gap:11px;margin:22px 0}
+.passport-boundaries>div{display:flex;align-items:flex-start;gap:10px;border:1px solid #ffffff1b;border-radius:10px;background:#12192c;padding:14px 15px;font-size:11px;line-height:1.7;color:#abb8d3}
+.passport-boundaries svg{flex-shrink:0;color:#b6a2f2;margin-top:2px}
+.passport-boundaries>div strong{color:#efe9fc}
+.passport-wire{border:1px solid #846bcd56;border-radius:12px;background:#211f37;padding:17px;display:flex;flex-direction:column;gap:10px}
+.passport-wire code{color:#d6c6ff;font-size:12px;overflow-wrap:anywhere}
+.passport-wire p{font-size:11px;line-height:1.7;margin:0;color:#adb2cb}
+.passport-summary{display:flex;flex-wrap:wrap;gap:10px;margin:19px 0}
+.passport-reason{font-size:12px;line-height:1.7;color:#c0cae0}
+.passport-case-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin:20px 0}
+.passport-case{min-width:0;display:flex;gap:11px;align-items:flex-start;border:1px solid #ffffff1a;border-radius:10px;background:#131b2e;padding:15px}
+.passport-case svg{flex-shrink:0;color:#c5b1f4}
+.passport-case>div{display:flex;flex-direction:column;gap:7px}
+.passport-case strong{color:#e9e6f9;font-size:11px;line-height:1.5;overflow-wrap:anywhere}
+.passport-case small{font-size:10px;color:#a5b2cc;line-height:1.5;overflow-wrap:anywhere}
+@media(max-width:900px){.passport-case-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:530px){.passport-case-grid{grid-template-columns:1fr}.passport-file-label{text-align:center}}
