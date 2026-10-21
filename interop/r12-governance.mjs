@@ -172,6 +172,8 @@ export function appendApproval(signed,passportTrust,operatorStore,ledger,operato
     throw Error('Operator checkpoint does not match current ledger head.');
   if(ledger.entries.length>0&&!knownCheckpoint)
     throw Error('Existing ledger requires an independently retained checkpoint before appending.');
+  if(!iso(signed?.signedAt)||Date.parse(at)<Date.parse(signed.signedAt))
+    throw Error('Operator review cannot be dated before claimed passport signing.');
   const source=verifySignedObject(signed,passportTrust);
   if(!source.signatureValid||!source.keyPinned||!source.sourceReplayConsistent)
     throw Error('Cannot approve without R10 independently pinned signed R6 evidence.');
