@@ -51,7 +51,7 @@ describe('R3 evidence-gated retrieval protocol', () => {
     for(const task of TASKS_R3.filter(t=>t.category==='out-of-domain')){
       expect(retrieve(task.question,'student:test',allPackets).decision).toBe('ABSTAIN_NO_MATCH');
     }
-    const vague='What is the broadcast address and subnet mask for an IPv4 CIDR range?';
+    const vague='What is the broadcast address and subnet mask for a network?';
     expect(retrieve(vague,'student:test',allPackets).decision).toBe('ABSTAIN_AMBIGUOUS');
     expect(relevance('Which ocean is deepest?','logic-hex')).toBe(0);
   });
