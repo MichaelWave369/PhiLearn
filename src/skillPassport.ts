@@ -77,8 +77,10 @@ export function hasPassportShape(v:unknown):v is SkillPassport {
       seen.has(cert.evidenceIds[i]))return false;
     seen.add(cert.evidenceIds[i]);
   }
+  const episodes=v.episodes;
+  if(!Array.isArray(episodes))return false;
   const episodeIds=new Set<string>();
-  for(const ep of v.episodes){
+  for(const ep of episodes){
     if(!isRecord(ep)||!str(ep.id,1,128)||episodeIds.has(ep.id)||
       !iso(ep.at)||ep.model!==sub.model||ep.mode!==sub.mode||
       ep.protocol!==GAUNTLET_VERSION||ep.provenance!=='OBSERVED'||
@@ -87,14 +89,14 @@ export function hasPassportShape(v:unknown):v is SkillPassport {
     episodeIds.add(ep.id);
     for(const step of ep.steps){
       if(!isRecord(step)||!str(step.raw,1,1024)||!str(step.reply,1,5000)||
-        !Number.isSafeInteger(step.turn)||step.turn<1||step.turn>MAX_TURNS||
+        typeof step.turn!=='number'||!Number.isSafeInteger(step.turn)||step.turn<1||step.turn>MAX_TURNS||
         typeof step.accepted!=='boolean'||
         typeof step.latencyMs!=='number'||!Number.isFinite(step.latencyMs)||
         step.latencyMs<0||step.latencyMs>1_000_000)return false;
     }
   }
-  if(cert.evidenceIds.some((id,i)=>v.episodes[i].id!==id||
-    v.episodes[i].scenarioId!==SCENARIOS[i].id))return false;
+  if(cert.evidenceIds.some((id,i)=>episodes[i].id!==id||
+    episodes[i].scenarioId!==SCENARIOS[i].id))return false;
   return true;
 }
 
