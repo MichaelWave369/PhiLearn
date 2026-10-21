@@ -1,6 +1,6 @@
 # PhiLearn
 
-**Adaptive Agent Learning & Evaluation Lab** · R6 v0.7.0 · MIT
+**Adaptive Agent Learning & Evaluation Lab** · R7 v0.8.0 · MIT
 
 > **Ledger above ego.** Every agent capability claim should be tied to reproducible evidence.
 
@@ -211,7 +211,34 @@ The simulator exposes synthetic inspections and simulated decisions only. It doe
 - **No neural training:** These are bounded, stateless **agent tool-selection and evidence-following** tests, not reinforcement learning, changed weights, retained skills, real-world tool execution, or statistically generalizable capability evidence.
 - **Security:** The existing localhost, session-token-protected inference bridge remains unchanged. No production tools or extra network requests are exposed. The benchmark data and answer keys ship in the open-source client and are not secret from source inspection.
 
-## R7 ideas
+## R7: Scoped Agent Skill Certification / Audit (v0.8.0)
+
+R7 adds a **Certification audit** workspace for **browser-local, unsigned attestations of the R6 synthetic tool-use benchmark**. It does not certify real-world technical proficiency, issue professional credentials, verify model weights, change neural training, or grant agent permission to touch production systems.
+
+### Earning a narrow R7 local receipt
+
+1. Run **R6 Tool-use gauntlet** with a local Ollama model on **all six deterministic scenarios**. Run the **bare** and/or **guided** modes to create real observed JSON action traces.
+2. Open **Certification audit**, choose the exact model ID and either bare or guided mode. These are evaluated **separately**. A guided success cannot make bare pass.
+3. R7 chooses the **latest recorded R6 episode for each scenario** under that model and mode. Old passing attempts never override newer failures.
+4. The verifier **replays each raw model JSON output** through R6's original strict parser and synthetic action state machine. It verifies sequential turn numbers, allowed inspection targets, both-evidence prerequisites, exact synthetic tool replies, final recommendations, latency fields, outcome and the absence of any policy violations.
+5. Only **six distinct scenario PASS traces**, each validated by deterministic replay, qualify for a narrow local receipt. Incomplete, missing, invalid, or policy-violating traces do not.
+6. When qualified, click **Issue scoped local receipt**. The app pins six source episode IDs and computes a SHA-256 digest of their source evidence. You can re-verify the stored receipt against those episodes later and export all certification/audit evidence as JSON.
+
+### Evidence summary from R1–R5
+
+The same page shows model-specific counts for observed R1 teaching episodes, R2 evidence-backed source packets, R3 retrieval comparisons, R4 cross-model recipient studies, R5 completed follow-ups, and R2 peer-authored note origins. **These are contextual research signals, not substitute qualifications**, and are never merged into a single universal score.
+
+### Scope, authenticity and operational restrictions
+
+- A passing report's exact scope is **R6_SYNTHETIC_JSON_TOOL_GAUNTLET_6_CASES**, for one chosen model identifier and one specific mode (bare or guided). It means *this browser currently contains six matching clean synthetic tool-choice traces*. Nothing broader.
+- **LOCAL_UNTRUSTED provenance:** A browser can edit localStorage, upload fabricated records, or change the frontend code. No server signs certificates and no trusted external witness verifies their authenticity. A SHA-256 digest detects changes against source records but **is not a digital signature** and cannot establish source integrity, authorship, real identity, or secure model attestation.
+- The six tasks are fixed and public; results do not support statistical generalization, real-world capability, cross-environment authorization, safe deployment practices, reinforcement learning or fine-tuning.
+- R7 performs **no model inference** during certification and grants no additional privileges. It only examines and hashes existing browser-local R6 evidence, then stores a locally issued receipt. R6's fake sandbox remains isolated from actual shells, accounts, networks and infrastructure.
+- Re-verification requires the original R6 source episodes still to be present and unchanged. A changed evidence payload breaks the digest. Issuance snapshots supporting R1–R5 counts but does not independently validate their claims.
+
+Use R7's scoped results as an **experimental ledger artifact**, not an accreditation or trust bypass.
+
+## R8 ideas
 
 - Randomized larger task libraries, repeated trials and confidence intervals.
 - Actual *teaching episodes* with delayed transfer/retention measurement rather than prompt-only comparisons.
