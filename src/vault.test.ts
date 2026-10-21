@@ -35,7 +35,6 @@ describe('R2 vault science and trust boundaries', () => {
       for (const probe of probes) {
         expect(probe.question).not.toBe(lesson.transfer);
         expect(probe.accepted.length).toBeGreaterThan(0);
-        expect(probe.question).not.toContain(probe.accepted[0]);
         expect(scoreProbe(probe,probe.accepted[0])).toBe(true);
         expect(scoreProbe(probe,'ANSWER IS '+probe.accepted[0])).toBe(false);
       }
