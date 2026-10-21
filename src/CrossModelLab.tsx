@@ -1,5 +1,5 @@
 import {useMemo,useRef,useState} from 'react';
-import {ArrowRight,BookOpen,BrainCircuit,CheckCircle2,Download,FlaskConical,Info,Play,RefreshCw,ShieldCheck,StopCircle,Trash2,Users} from 'lucide-react';
+import {ArrowRight,BookOpen,CheckCircle2,Download,FlaskConical,Info,Play,RefreshCw,ShieldCheck,StopCircle,Trash2,Users} from 'lucide-react';
 import {generate,type BridgeClient} from './bridge';
 import {readVault,type SkillPacket} from './vault';
 import {LESSONS} from './teaching';
