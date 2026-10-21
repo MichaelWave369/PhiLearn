@@ -4,7 +4,7 @@
  * No neural memory, training, or causal retention claim is justified.
  */
 import {normalize} from './teaching';
-import {CONDITIONS, NEUTRAL_NOTE, TRANSFER_PROTOCOL, randomConditions, type Condition, type Answer, type Triple, type CrossSession} from './crossTransfer';
+import {CONDITIONS, NEUTRAL_NOTE, TRANSFER_PROTOCOL, randomConditions, type Condition, type Triple, type CrossSession} from './crossTransfer';
 
 export const DELAYED_PROTOCOL='philearn-r5-delayed-recheck-v1';
 export const MIN_DELAY_MS=24*60*60*1000;
