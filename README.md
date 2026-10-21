@@ -1,6 +1,6 @@
 # PhiLearn
 
-**Adaptive Agent Learning & Evaluation Lab** · R4 v0.5.0 · MIT
+**Adaptive Agent Learning & Evaluation Lab** · R5 v0.6.0 · MIT
 
 > **Ledger above ego.** Every agent capability claim should be tied to reproducible evidence.
 
@@ -159,7 +159,30 @@ These labels are **descriptive**, not inferential or causal. Three small, fixed,
 - Notes are forwarded only as inert text via the existing token-protected, loopback-only Ollama bridge. They never become executable tool commands or secret-access instructions.
 - No automatic cloud transmission. All R4 records are browser-local unless the user explicitly exports them.
 
-## R5 ideas
+## R5: Delayed Re-check / Longitudinal Assistance (v0.6.0)
+
+This workspace examines whether an **external saved procedural note** still assists a separate local model *after time has passed*. It is **not** a claim that the model has retained learning internally.
+
+### Manual workflow
+
+1. Use the **Cross-model lab (R4)** to complete a 3×3 study: source and recipient are distinct Ollama models, and the recipient answers three tasks under **bare, unrelated neutral note, and relevant source playbook** conditions.
+2. In **Delayed re-check (R5)**, select an observed, complete R4 study. Enroll a **1-, 3-, or 7-day** follow-up. The earliest due time is pinned to the original R4 timestamp, not the day you register the follow-up.
+3. R5 saves the *exact source playbook snapshot*, *neutral note*, recipient model identity, source provenance and baseline scores, so later changes to the R2 packet cannot silently modify this experiment.
+4. Reopen PhiLearn **manually** on or after the displayed due time. The UI refreshes its eligibility clock periodically; the Run button stays disabled until the delay has elapsed.
+5. Reconnect the authenticated local Ollama bridge with the **same model identifier** as the original R4 recipient. R5 uses three **new** task prompts in that same skill category, distinct from the R1–R4 banks. It calls the model independently three times per question, with shuffled condition order, for nine requests total.
+6. Only complete studies are saved. Interrupted or errored studies remain pending, with no partial score promotion. The ledger compares all three condition scores from R4 and R5 and records every model response and timing; exports are versioned JSON.
+
+The delay is enforced using the **client device clock**, not an independently trusted server timestamp. R5 **does not schedule a background action, send a reminder, automatically run Ollama at the due date, or perform hidden inference**. The user must reopen the application and start each follow-up. Clock changes can invalidate elapsed-time assumptions. Model tags can point to updated weights between sessions, despite identical displayed identifiers, and the app cannot attest an unchanged model binary.
+
+### Scientific and security boundaries
+
+- This is delayed testing of **retrieval-augmented, in-context assistance** from stored browser instructions, not retention of an internal neural skill or changes to model weights.
+- Fresh questions reduce exact task repetition but do not rule out contamination. As an open-source browser app, benchmark questions and expected answers are in the client bundle, not in model prompts.
+- The neutral reference is not matched in length or topic, and three items per condition cannot establish statistical significance. An apparent score difference across time can reflect task difficulty, quantization/model changes, prompt-format sensitivity, sampling, or random variation.
+- Saved peer tutor text remains explicitly untrusted. The local bridge only forwards strings to Ollama. There is no shell execution, no new network connector, and no permissions to retrieve secrets or perform external actions.
+- R5 records are local-only until you choose to export them; deleting them clears the R5 study ledger from that browser.
+
+## R6 ideas
 
 - Randomized larger task libraries, repeated trials and confidence intervals.
 - Actual *teaching episodes* with delayed transfer/retention measurement rather than prompt-only comparisons.
