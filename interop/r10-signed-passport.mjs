@@ -40,7 +40,7 @@ export function createSignedPassport(passport,privatePem,issuerId,signedAt=new D
     throw Error('Invalid issuer label or signing timestamp.');
   const base=verifyObject(passport);
   if(!base.replayConsistent)throw Error('Unsigned R8 passport must replay before signing: '+base.reason);
-  const key=createPrivateKey(privatePem);
+  const key=privatePem?.type==='private'?privatePem:createPrivateKey(privatePem);
   if(key.asymmetricKeyType!=='ed25519')throw Error('Only Ed25519 signing keys are supported.');
   const keyId=keyFingerprint(key);
   const body=msg(issuerId,keyId,signedAt,passport.payloadSha256);
