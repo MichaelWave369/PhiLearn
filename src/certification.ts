@@ -145,6 +145,10 @@ export async function verifyCertificate(
     certificate.scenarioIds.join('|')!==SCENARIOS.map(s=>s.id).join('|')||
     !Array.isArray(certificate.evidenceIds)||certificate.evidenceIds.length!==SCENARIOS.length)
     return {valid:false,reason:'Unsupported receipt schema or scope.'};
+  const current=auditModel(certificate.model,certificate.mode,episodes);
+  if(current.state!=='QUALIFIED'||
+    current.cases.some((c,i)=>c.episodeId!==certificate.evidenceIds[i]))
+    return {valid:false,reason:'Superseded: the latest six R6 scenario results no longer match this receipt.'};
   const required:ToolEpisode[]=[];
   for(let i=0;i<SCENARIOS.length;i++){
     const episode=episodes.find(e=>e.id===certificate.evidenceIds[i]);
