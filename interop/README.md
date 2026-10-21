@@ -15,7 +15,7 @@ Exit codes:
 
 JavaScript API: import verifyText or verifyObject from interop/skill-passport-verifier.mjs. Pass only locally selected JSON text or parsed data. Results always return authority NONE and an empty permissions array. No npm dependencies, model calls, dynamic imports of passport data, browser storage, or HTTP requests.
 
-Conformance tests: node --test interop/skill-passport-verifier.test.mjs
+Conformance tests: node --test interop/skill-passport-verifier.node-check.mjs
 
 ## Compatibility consumers
 
