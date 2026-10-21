@@ -14,7 +14,7 @@ export type Outcome = 'PASS'|'FAIL'|'INCOMPLETE'|'POLICY_VIOLATION';
 export type Action = {tool:'inspect';target:Target}|{tool:'decide';decision:Decision};
 export interface Scenario {
   id:string;title:string;category:string;brief:string;
-  evidence:[Target,Target];readings:Partial<Record<Target,Record<string,string|boolean>>>;
+  evidence:[Target,Target];readings:Partial<Record<Target,Record<string,string|number|boolean>>>;
   expected:Decision;
 }
 export interface ArenaState {observed:Target[];finished:boolean;decision:Decision|null;violations:number;}
