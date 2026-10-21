@@ -93,7 +93,10 @@ export function verifyWitness(ledger,operatorStore,receipt,witnessStore,minimumC
   const found=witnessStore.witnesses.filter(w=>w.active&&w.witnessId===receipt.witnessId&&
     w.keyId===receipt.keyId);
   if(found.length!==1)return denied('WITNESS_UNPINNED','Witness not independently pinned or is revoked.');
-  const {signature,...body}=receipt;
+  const signature=receipt.signature;
+  const body={format:receipt.format,witnessId:receipt.witnessId,keyId:receipt.keyId,
+    signedAt:receipt.signedAt,scope:receipt.scope,count:receipt.count,
+    headHash:receipt.headHash};
   let valid=false;
   try{
     const p=createPublicKey({key:Buffer.from(found[0].publicKeySpkiBase64,'base64'),
