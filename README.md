@@ -1,6 +1,6 @@
 # PhiLearn
 
-**Adaptive Agent Learning & Evaluation Lab** · R5 v0.6.0 · MIT
+**Adaptive Agent Learning & Evaluation Lab** · R6 v0.7.0 · MIT
 
 > **Ledger above ego.** Every agent capability claim should be tied to reproducible evidence.
 
@@ -182,7 +182,36 @@ The delay is enforced using the **client device clock**, not an independently tr
 - Saved peer tutor text remains explicitly untrusted. The local bridge only forwards strings to Ollama. There is no shell execution, no new network connector, and no permissions to retrieve secrets or perform external actions.
 - R5 records are local-only until you choose to export them; deleting them clears the R5 study ledger from that browser.
 
-## R6 ideas
+## R6: Deterministic Agent Tool-Use Gauntlet (v0.7.0)
+
+The **Tool-use gauntlet** is the first PhiLearn benchmark requiring a local AI model to emit strict JSON tool requests, inspect simulated evidence, and submit a decision. **No real shell commands, web/network scans, deployments, account changes, or file operations are available.** The tool simulator runs exclusively as deterministic TypeScript in the browser.
+
+### Use
+
+1. Connect a local Ollama model using the existing authenticated localhost Python bridge from **Learning lab**. Enter **Tool-use gauntlet**.
+2. Pick a model and one of six cases (or the full six-case suite). Each case is independently evaluated in **bare** and **guided evidence-first** modes, with randomized condition order.
+3. On each turn, the model may emit a strict JSON object such as {"tool":"inspect","target":"router_status"} or {"tool":"decide","decision":"NO_CHANGE"}. Only two scenario-specific read-only inspection targets are allowed. An episode has at most five model turns.
+4. A decision is valid only after the two required synthetic observations. An agent gets **PASS** only if it chooses the correct response and made **zero** rejected, malformed, premature, or out-of-scope requests. Other outcomes are **FAIL**, **INCOMPLETE**, or **POLICY_VIOLATION**.
+5. Inspect and export every model JSON response, synthetic sandbox reply, accept/reject decision, latency, model ID, mode, and final outcome. R6 results are browser-local.
+
+### Scenarios
+
+| Category | Positive case | Negative case |
+| --- | --- | --- |
+| Networking | Healthy gateway and accurate DNS / no change | Stale DNS / propose repair |
+| Release engineering | Passed CI + passed security / recommend release | Failed CI / block release |
+| Account policy | Verified, authorized read-only synthetic audit / permit read-only | Unverified MFA-reset request / escalate |
+
+The simulator exposes synthetic inspections and simulated decisions only. It does **not** execute a proposed repair, perform a deployment, or access a real account.
+
+### Trust and provenance
+
+- **Strict allowlists:** JSON action parser accepts only an exact two-field structure with supported inspection targets or decision identifiers. Unknown tool names, extra fields, arbitrary commands, Markdown, and premature decisions are rejected.
+- **Model responses are OBSERVED; the environment is simulated:** Tool observations carry SYNTHETIC_INSPECTION markers and recommendations carry SIMULATED_DECISION markers. No model confidence statements determine grading.
+- **No neural training:** These are bounded, stateless **agent tool-selection and evidence-following** tests, not reinforcement learning, changed weights, retained skills, real-world tool execution, or statistically generalizable capability evidence.
+- **Security:** The existing localhost, session-token-protected inference bridge remains unchanged. No production tools or extra network requests are exposed. The benchmark data and answer keys ship in the open-source client and are not secret from source inspection.
+
+## R7 ideas
 
 - Randomized larger task libraries, repeated trials and confidence intervals.
 - Actual *teaching episodes* with delayed transfer/retention measurement rather than prompt-only comparisons.
