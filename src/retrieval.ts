@@ -24,7 +24,7 @@ export interface RetrievalChoice {
 }
 export interface RetrievalAttempt { text: string; correct: boolean; elapsedMs: number; }
 export interface RetrievalReceipt {
-  id: string; at: string; protocol: string; provenance: 'OBSERVED';
+  id: string; at: string; protocol: string; provenance: 'OBSERVED' | 'INFERRED';
   taskId: string; model: string; decision: Decision; packetId: string | null;
   packetSourceReceiptId: string | null;
   matchScore: number; matchMargin: number; reason: string;
