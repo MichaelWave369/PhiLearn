@@ -1,6 +1,6 @@
 # PhiLearn
 
-**Adaptive Agent Learning & Evaluation Lab** · R7 v0.8.0 · MIT
+**Adaptive Agent Learning & Evaluation Lab** · R8 v0.9.0 · MIT
 
 > **Ledger above ego.** Every agent capability claim should be tied to reproducible evidence.
 
@@ -238,7 +238,56 @@ The same page shows model-specific counts for observed R1 teaching episodes, R2 
 
 Use R7's scoped results as an **experimental ledger artifact**, not an accreditation or trust bypass.
 
-## R8 ideas
+## R8: Portable Skill Passport (v0.9.0)
+
+**Goal:** carry evidence between local or future PhiBots systems, while ensuring no receiving application mistakes portable JSON for a trusted identity, authorization, model weight state, or training certificate.
+
+The new **Skill Passport** workspace exports a **self-contained, versioned R7/R6 evidence bundle** and imports such bundles into a separate **quarantine**, with replay verification and strictly no new permissions. This defines a possible future interoperability contract for BrainC and SuperPhiVessel; **it does not modify or connect to those repositories in R8**.
+
+### Export a portable passport
+
+1. Complete all six R6 synthetic tool-use scenarios using one local Ollama model and either bare or guided mode.
+2. In R7, issue the narrow browser-local synthetic certification once all six latest traces replay as clean PASS.
+3. Go to **Skill Passport**, select the R7 receipt and click **Export self-contained passport**.
+4. Before export, PhiLearn **re-verifies that certificate against all existing local R6 episodes**. Missing source traces, corrupt data, or a newer failure invalidate export. The file includes the certificate and exactly six original tool-action traces, one for each public synthetic scenario, in its canonical order.
+5. The JSON passport also contains a SHA-256 consistency checksum over its versioned payload. This checksum is **not a cryptographic signature** and provides no independent source authenticity.
+
+### Import a Skill Passport (passive, isolated)
+
+1. Use the **Choose Skill Passport JSON** control. Imports are capped at **256 KB**, and the version and JSON structure are checked before quarantine.
+2. The loader enforces the immutable **authority = NONE**, **usage = INSPECT_ONLY**, and empty **requestedPermissions** fields; any additional top-level fields, changed or unexpected scopes, and invalid model/scenario structure are rejected. The importer does not execute code or fetch anything from the network.
+3. It recomputes the passport payload checksum, verifies the embedded R7 certificate's original R6 evidence digest, and **replays all six raw JSON tool traces** using the R6 deterministic simulation. An error results in **REPLAY_FAIL_UNTRUSTED**.
+4. A matching bundle is marked **REPLAY_PASS_UNTRUSTED**, *never trusted*. Imported episodes are **NOT** merged into the local R6 observation ledger or R7 certification register. The imported file cannot earn additional certification, install a skill, invoke an Ollama model, add an agent, call a tool or grant any role.
+5. Optionally mark **inspected locally** after reading. This flag is simply a local annotation and does not change authority. Re-run verification, inspect six enclosed cases, or delete the quarantined item. Duplicate passports are detected by the consistency checksum.
+
+### Versioned wire contract
+
+The documented format is **philearn.skill-passport.v1**.
+
+| Field | Meaning |
+| --- | --- |
+| format | Exact version identifier (unsupported versions are rejected) |
+| exportedAt | Self-reported export timestamp |
+| issuerClaim | Self-reported app label: PhiLearn; no verified signer |
+| subject | Claimed model ID and exactly one R6 condition (bare or guided) |
+| scope | R6_SYNTHETIC_JSON_TOOL_GAUNTLET_6_CASES |
+| boundary | authority NONE, requestedPermissions [], usage INSPECT_ONLY |
+| certificate | R7 unsigned scoped receipt, its evidence IDs and evidence SHA-256 |
+| episodes | Six complete synthetic R6 JSON-action traces, in frozen scenario order |
+| payloadSha256 | SHA-256 of the JSON body with this checksum field omitted |
+
+The consumer must parse bounded JSON, validate the full schema, replay synthetic evidence, and keep the result in quarantine without granting trust. Do **not** rely on the declared issuer, model name, checksums, dates, pass flags, or manually recorded review flags for security decisions.
+
+**No cross-repo runtime API is installed by this PR.** BrainC and SuperPhiVessel can adopt the documented contract later through separate reviews and sandboxed integrations.
+
+### What this does *not* prove
+
+- An adversary controlling the browser, file or source code can forge synthetic model responses, build internally consistent traces, and recompute the hashes. **Replaying a passport only validates internal consistency**, not historical truth.
+- No trusted witness, signature, timestamp service, hardware attestation, model-weight signature, or independent external benchmark is present. An apparently valid imported file is not a trustworthy identity credential.
+- This benchmark does not establish general agent competence, real operational safety, persistent learning, model fine-tuning, real-world tooling, or a right to execute system actions.
+- A production consumer would need independently authenticated provenance, a policy engine, explicit human approval for separate actions, and stronger blinded evaluation. **Even a legitimate receipt must not automatically promote model privileges.**
+
+## R9 ideas
 
 - Randomized larger task libraries, repeated trials and confidence intervals.
 - Actual *teaching episodes* with delayed transfer/retention measurement rather than prompt-only comparisons.
