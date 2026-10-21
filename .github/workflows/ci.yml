@@ -18,6 +18,9 @@ jobs:
       - run: node --test interop/r10-signed-passport.node-check.mjs
       - run: node --test interop/r11-enrollment.node-check.mjs
       - run: node --test interop/r12-governance.node-check.mjs
+      - run: node --test interop/r13-witness.node-check.mjs
+      - run: node --check interop/r13-cli.mjs
+      - run: node interop/r13-fixture.mjs > /dev/null
       - run: node --check interop/r12-cli.mjs
       - run: node --check interop/r11-cli.mjs
       - run: node --check interop/r10-cli.mjs
