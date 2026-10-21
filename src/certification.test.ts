@@ -98,6 +98,10 @@ describe('R7 auditable synthetic-only certification',()=>{
     expect(receipt.evidenceSha256).toMatch(/^[0-9a-f]{64}$/);
     expect((await verifyCertificate(receipt,episodes)).valid).toBe(true);
     expect((await verifyCertificate(receipt,episodes.slice(1))).valid).toBe(false);
+    const newerFailure={...observed(SCENARIOS[0],'guided','2026-10-21T22:00:00Z'),
+      steps:observed(SCENARIOS[0],'guided','2026-10-21T22:00:00Z').steps.slice(0,2),
+      outcome:'INCOMPLETE' as const,decision:null};
+    expect((await verifyCertificate(receipt,[...episodes,newerFailure])).valid).toBe(false);
     const replaced=[{...episodes[0],steps:[...episodes[0].steps]},...episodes.slice(1)];
     replaced[0].steps[0]={...replaced[0].steps[0],latencyMs:999};
     // Valid replay but a different evidence payload => digest mismatch.
