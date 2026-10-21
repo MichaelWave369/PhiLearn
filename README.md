@@ -299,3 +299,16 @@ The consumer must parse bounded JSON, validate the full schema, replay synthetic
 ## License
 
 MIT. Copyright © 2026 Michael Hughes.
+
+
+## R9: Independent Skill Passport compatibility consumers (v0.10)
+
+The R8 passport no longer requires PhiLearn's browser to be inspected. A **standalone Node.js verifier**, with zero npm dependencies, lives in interop/skill-passport-verifier.mjs. Run it against a locally selected JSON file with:
+
+    node interop/verify-passport.mjs path/to/passport.json
+
+R9 also adds matching **separate, passive consumer implementations** to BrainC (Python 3.11+ standard library) and SuperPhiVessel (Node.js 20+). Each consumer independently validates schema limits, locked no-authority fields, R7/R8 evidence hashes, and the original six synthetic R6 action traces. Conformance tests include forged action attempts and recomputed checksums.
+
+**All consumers return REPLAY_PASS_UNTRUSTED or REPLAY_FAIL_UNTRUSTED.** Replayed JSON is not historical authentication, an agent credential, training, or permission to execute tools. No memory imports, routing updates, external network operations or API privileges occur. Future live wiring would require an independently verified issuer and explicitly approved actions, not just a passport.
+
+See interop/README.md for the exact wire contract, usage and exit codes.
