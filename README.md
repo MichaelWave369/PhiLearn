@@ -1,6 +1,6 @@
 # PhiLearn
 
-**Adaptive Agent Learning & Evaluation Lab** · R3 v0.4.0 · MIT
+**Adaptive Agent Learning & Evaluation Lab** · R4 v0.5.0 · MIT
 
 > **Ledger above ego.** Every agent capability claim should be tied to reproducible evidence.
 
@@ -130,7 +130,36 @@ R2 adds the **Skill vault** workspace to reuse an **observed R1 teaching explana
 
 The R3 sessions have their own localStorage namespace. No records are uploaded automatically.
 
-## R4 ideas
+## R4: Cross-Model Transfer Lab (v0.5.0)
+
+R4 asks: **does an R2 evidence-backed procedure for one model help a *different* model answer fresh tasks?** It does not transfer neural network weights, fine-tune models, or prove any permanent learning.
+
+### Setup and experimental design
+
+1. Use R1 Teaching Studio to generate an observed teaching receipt from a local Ollama model.
+2. Use R2 Skill Vault to capture and independently validate a procedural note. The source packet must currently be **EVIDENCE_BACKED**, with a successful three-question assisted transfer result and no regression in its most recent R2 run.
+3. Navigate to **Cross-model lab** and choose the eligible R2 source packet.
+4. Select a **different local Ollama model**, which acts as the recipient. Identical source and recipient model identifiers are rejected.
+5. Start the R4 controlled comparison. The recipient answers *three fresh tasks* from that packet's skill domain under three independent randomized-order conditions, nine sequential model requests per study:
+   - **Bare:** short task instructions only.
+   - **Neutral:** same task with an unrelated botanical note (an imperfect extra-context control).
+   - **Relevant:** same task with the source model's saved procedural note.
+6. Review the 3×3 answer matrix, output text, pass/fail, timing, order, source receipt, and model identities. Only completed comparisons are persisted to the separate R4 browser-local ledger. Export or delete local study records.
+
+### Interpreting the directional signal
+
+R4 reports the three condition scores (out of three) and paired changes. **DIRECTIONAL_LIFT** means that the relevant-note score exceeded *both* control scores and had *zero* individual regressions versus either control. **REGRESSION** means at least one reference-note response failed while a control passed; otherwise the label is **NO_CLEAR_LIFT**.
+
+These labels are **descriptive**, not inferential or causal. Three small, fixed, public examples per domain cannot prove statistically reliable transfer or retained skill. The neutral note is not a matched-length placebo. Prompts and expected answers are bundled with the open-source app, so they are only hidden from the Ollama request, not from someone reading frontend source. Independent problem banks, repeated randomized tests and additional controls are needed before publishing efficacy claims.
+
+### Provenance, privacy and trust
+
+- Source packet must have observed R2 evidence and retains its origin: **CURATED** or **PEER_UNVERIFIED**. Peer-authored content remains untrusted even if it helps on a test.
+- Original packet text is included as a snapshot alongside the observed target answers in the exported receipt. Evidence in the ledger is labelled **OBSERVED**, and incomplete studies are discarded.
+- Notes are forwarded only as inert text via the existing token-protected, loopback-only Ollama bridge. They never become executable tool commands or secret-access instructions.
+- No automatic cloud transmission. All R4 records are browser-local unless the user explicitly exports them.
+
+## R5 ideas
 
 - Randomized larger task libraries, repeated trials and confidence intervals.
 - Actual *teaching episodes* with delayed transfer/retention measurement rather than prompt-only comparisons.
