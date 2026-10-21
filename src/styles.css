@@ -115,3 +115,24 @@
 .vault-answers span{font-size:12px;color:#e4e3f5;white-space:pre-wrap;overflow-wrap:anywhere}
 .vault-answers strong{font-size:10px;color:#91e2be}
 @media(max-width:720px){.vault-source-row{flex-direction:column;align-items:stretch}.vault-source-row .model-select{width:100%;min-width:0;flex:auto}.vault-answers{grid-template-columns:1fr}.vault-probe{padding:13px}}
+
+
+/* R3 retrieval arena */
+.retrieval-page{min-width:0}
+.retrieval-preview{margin-top:16px;border-radius:11px;border:1px solid #8d83bd55;background:#151a30;padding:19px}
+.retrieval-preview>.mini-kicker{display:block;margin-bottom:14px}
+.retrieval-preview>strong{font-size:14px;display:block;color:#decfff;margin-bottom:8px;overflow-wrap:anywhere}
+.retrieval-preview p{font-size:11px;line-height:1.7;color:#a5aec8}
+.retrieval-preview>small{font-size:10px;line-height:1.6;color:#b4cce5}
+.retrieval-preview>div{border-top:1px solid #ffffff20;margin-top:12px;padding-top:12px;font-size:10px;line-height:1.8;color:#a7a0c3}
+.retrieval-preview>div b{overflow-wrap:anywhere;color:#e2d3ff}
+.retrieval-preview>div small{display:block;color:#99a6bd;overflow-wrap:anywhere}
+.retrieval-eligible{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:15px 3px;border-top:1px solid #ffffff19;flex-wrap:wrap}
+.retrieval-eligible>div{min-width:0;display:flex;flex-direction:column;gap:6px}
+.retrieval-eligible strong{font-size:12px;color:#ede5fb;overflow-wrap:anywhere}
+.retrieval-eligible small{font-size:10px;color:#aab2ce}
+.retrieval-session-line{display:flex;gap:15px;align-items:center;flex-wrap:wrap;border-top:1px solid #ffffff18;border-bottom:1px solid #ffffff18;padding:17px 0;margin-top:13px;color:#a6b1cc;font-size:11px}
+.retrieval-session-line strong{color:#efe9fc}
+.retrieval-page .teaching-receipt-ident small{max-width:560px}
+.retrieval-page .teaching-receipt-toggle .vault-state{flex-shrink:0}
+@media(max-width:680px){.retrieval-page .teaching-receipt-toggle{align-items:flex-start}.retrieval-page .teaching-receipt-toggle .vault-state{max-width:100%}.retrieval-session-line{flex-direction:column;align-items:flex-start;gap:6px}}
