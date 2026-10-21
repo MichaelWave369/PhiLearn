@@ -1,6 +1,6 @@
 # PhiLearn
 
-**Adaptive Agent Learning & Evaluation Lab** · R0 v0.1.0 · MIT
+**Adaptive Agent Learning & Evaluation Lab** · R1 v0.2.0 · MIT
 
 > **Ledger above ego.** Every agent capability claim should be tied to reproducible evidence.
 
@@ -64,7 +64,25 @@ GITHUB_PAGES=true npm run build
 
 The workflow `.github/workflows/deploy.yml` builds from `main` using the Vite base `/PhiLearn/`. In **Settings → Pages**, select **GitHub Actions** as the build source if it is not already selected. The expected URL is <https://michaelwave369.github.io/PhiLearn/> after a successful deployment.
 
-## R1 ideas
+## R1: Agent classroom / teaching episodes (v0.2.0)
+
+The **Teaching studio** tab introduces in-context instructional transfer experiments. This is not weight training.
+
+1. Connect the local Python/Ollama bridge from **Learning lab**.
+2. Choose a **learner** model and a curriculum module (or the full six-module curriculum).
+3. Choose **Curated demonstration** for reproducible, fixed teaching text or **Agent teaches agent** for model-generated explanations from a selected local **peer tutor**.
+4. Run a paired trial. The learner answers the *same transfer question* in independent, stateless requests, once with only the task and once with an instructional example. Their order is randomized per lesson.
+5. Compare exact-answer baseline/coached scores, response latency, and evidence. Export the **R1 teaching receipts** separately from the existing R0 ledger.
+
+**Tutor isolation:** The peer-tutor prompt contains the lesson concept, the worked example, and its reference answer but **not** the fresh transfer question or the expected transfer answer. The tutor's explanation is explicitly marked unverified model-generated text. The evaluation answer is graded against a pinned closed-answer reference. Tutor output is not treated as factual simply because a trial scores correctly.
+
+**Receipts:** Each fully completed paired trial records the model identities, method, prompt order, responses, exact-answer grades, latencies, curriculum version, and 'OBSERVED' provenance. Incomplete pairs are discarded when a run is stopped; completed receipts remain in local browser storage. Demo data from R0 is never mixed into this R1 ledger.
+
+**Scientific boundaries:** This experiment evaluates temporary **in-context instruction effects**. A positive before/after difference is **not evidence of weight updates, durable skill acquisition, memory, or causal superiority**. Because there are only six exercises and no repeats, the results are exploratory, without meaningful statistical power; model sampling and task-order effects still matter. Compare fresh tasks and repeated independent runs before drawing conclusions.
+
+**Safety and privacy:** The bridge is loopback-only with an ephemeral bearer token. No code execution, shell access, external web crawling, fine-tuning, or model downloads are triggered by lessons. Peer tutor text is not automatically trusted or executed. It is possible for a peer explanation to be wrong. Only intentionally built-in benchmark examples are sent to the local model.
+
+## R2 ideas
 
 - Randomized larger task libraries, repeated trials and confidence intervals.
 - Actual *teaching episodes* with delayed transfer/retention measurement rather than prompt-only comparisons.
