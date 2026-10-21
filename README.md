@@ -1,6 +1,6 @@
 # PhiLearn
 
-**Adaptive Agent Learning & Evaluation Lab** · R2 v0.3.0 · MIT
+**Adaptive Agent Learning & Evaluation Lab** · R3 v0.4.0 · MIT
 
 > **Ledger above ego.** Every agent capability claim should be tied to reproducible evidence.
 
@@ -106,7 +106,31 @@ R2 adds the **Skill vault** workspace to reuse an **observed R1 teaching explana
 
 **Security:** Notes are **untrusted prompt content**, forwarded only as text to the local Ollama inference endpoint. The system never executes notes as shell commands, scripts, tools, or instructions to access external systems. The bridge remains authenticated and loopback-only.
 
-## R3 ideas
+## R3: Evidence-Gated Retrieval Arena (v0.4.0)
+
+**New navigation:** Retrieval arena. This is the third rung after R1 Teaching Studio and R2 Skill Vault.
+
+### How to run
+
+1. Run an **observed R1 teaching episode** using Ollama.
+2. Capture that episode into an R2 Skill Vault packet and earn R2's narrowly defined **EVIDENCE_BACKED** status by passing its three independent transfer probes (assisted 3/3, at least one improvement, zero regressions).
+3. Return to the **Retrieval arena** and select the **exact same student model** through the locally authenticated Ollama bridge.
+4. Choose one new challenge or the full 14-item challenge suite. R3 uses twelve fresh in-domain tasks (two per R1 skill) plus two out-of-domain probes.
+5. Inspect the **router preview**: ranked token/phrase relevance, decision, reason, and packet provenance. There are no background model calls.
+6. Run the comparison. On a *successful* retrieval, the same model answers the same fresh question in independent, randomized-order prompts without and with the saved note. On non-retrieval, the router abstains **without an Ollama call**.
+7. Audit exact outputs, grading, latencies, request order, source packet IDs, and abstentions. Export or clear the browser-local R3 ledger.
+
+### Safety and model limitations
+
+- **Eligibility:** An R2 EVIDENCE_BACKED designation on the packet's most recent complete run is required, and its source student model must **exactly** match the selected R3 model. New failures or ambiguous evidence stop retrieval.
+- **Routing:** Deterministic **lexical**, not semantic/embedding retrieval. Keywords are frozen per skill. A match requires score >= 4, with score margin >= 2 against the next closest eligible skill. Duplicate evidence-backed packets in the same skill are reduced to the newest. The router cannot see reference answer keys or the task's category ground truth.
+- **Abstention:** No eligible evidence, no sufficiently relevant match, or ambiguous matches lead to abstention and **no student inference call**. Those are **INFERRED** route decisions, not observed model answers.
+- **Instruction trust:** Saved lessons are always treated as *untrusted reference text*, not executable code or tool commands. Nothing invokes shells, browsers, agents, or remote APIs. The existing bridge remains token-protected and loopback-only.
+- **Scientific limits:** R3 measures an **in-context retrieval assistance effect** on a tiny, public, fixed task set. A pass does not establish actual model weight training, durable learning, autonomous problem solving, performance on general tasks, independent verification of a peer tutor's claims, or causal improvement. Since task data and answers ship in the client bundle, they are not secret from code inspection; they are withheld from *generated model prompts*. Repeating the suite can contaminate future scores. Use larger independently hosted holdouts and confidence intervals for stronger science.
+
+The R3 sessions have their own localStorage namespace. No records are uploaded automatically.
+
+## R4 ideas
 
 - Randomized larger task libraries, repeated trials and confidence intervals.
 - Actual *teaching episodes* with delayed transfer/retention measurement rather than prompt-only comparisons.
