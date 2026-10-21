@@ -44,7 +44,7 @@ export default function RetrievalArena({client,models,defaultModel,goToConnectio
         if (controller.signal.aborted) break;
         const choice=retrieve(item.question,activeModel,packets);
         const observedBase={id:'retrieval-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,9),
-          at:new Date().toISOString(),protocol:RETRIEVAL_PROTOCOL,provenance:'OBSERVED' as const,
+          at:new Date().toISOString(),protocol:RETRIEVAL_PROTOCOL,provenance:choice.decision==='RETRIEVED' ? 'OBSERVED' as const : 'INFERRED' as const,
           taskId:item.id,model:activeModel,decision:choice.decision,
           packetId:choice.packet?.id ?? null,packetSourceReceiptId:choice.packet?.sourceReceiptId ?? null,
           matchScore:choice.score,matchMargin:choice.score-choice.secondScore,reason:choice.reason};
