@@ -1,6 +1,6 @@
 # PhiLearn
 
-**Adaptive Agent Learning & Evaluation Lab** · R1 v0.2.0 · MIT
+**Adaptive Agent Learning & Evaluation Lab** · R2 v0.3.0 · MIT
 
 > **Ledger above ego.** Every agent capability claim should be tied to reproducible evidence.
 
@@ -82,7 +82,31 @@ The **Teaching studio** tab introduces in-context instructional transfer experim
 
 **Safety and privacy:** The bridge is loopback-only with an ephemeral bearer token. No code execution, shell access, external web crawling, fine-tuning, or model downloads are triggered by lessons. Peer tutor text is not automatically trusted or executed. It is possible for a peer explanation to be wrong. Only intentionally built-in benchmark examples are sent to the local model.
 
-## R2 ideas
+## R2: Skill Vault / evidence-backed procedural memory (v0.3.0)
+
+R2 adds the **Skill vault** workspace to reuse an **observed R1 teaching explanation** as an explicit browser-persistent procedural note. It does **not** claim that a model learned or remembered anything internally.
+
+### Workflow
+
+1. Run **R1 Teaching studio** against a connected local Ollama learner. One successful, observed teaching receipt is enough to create a *candidate*.
+2. In **Skill vault**, select the R1 receipt and choose **Save note**. The packet stores its source receipt ID, model identity, tutor origin, and exact note. A peer-produced explanation is always marked **PEER_UNVERIFIED**.
+3. Connect to the same learner model through the authenticated local bridge and run **three R2 transfer probes**. These questions do not duplicate the R1 task. Each probe is attempted independently without a note and then with the note (order randomized per probe).
+4. Compare scores, exact model outputs, latency and response order. A *fully completed* three-probe run is saved with the packet; aborted/partial evaluations are discarded rather than promoted.
+5. Export all browser-local packets and trial receipts to versioned JSON if desired. You can delete a candidate and its evidence at any time.
+
+### Bounded evidence labels
+
+- **CANDIDATE:** No independent transfer run completed.
+- **EVIDENCE_BACKED:** In the latest complete, same-model R2 run, assisted responses scored correctly on all three fresh probes, at least one response improved over its unassisted counterpart, and no response regressed.
+- **NO_LIFT:** Both conditions scored correctly on all three, so assistance did not yield an observed gain.
+- **REGRESSED:** At least one probe that passed without the note failed with it.
+- **INCONCLUSIVE:** Completed runs with mixed outcomes or an invalid/noncomparable protocol.
+
+**Scientific boundaries:** "Evidence-backed" applies *only* to the frozen three-question protocol for that model and note. Small fixed tasks permit leakage through application inspection, and scores are not statistically robust. A peer explanation is not fact-checked merely by being saved. These labels do not demonstrate persistent model cognition, actual skill acquisition, weight changes, generalization beyond the probes, or a causal training effect. Repeated exposure can contaminate further evaluations. For serious scientific work, add larger concealed task banks, repeated randomized trials, independent grading, and delayed follow-up sessions.
+
+**Security:** Notes are **untrusted prompt content**, forwarded only as text to the local Ollama inference endpoint. The system never executes notes as shell commands, scripts, tools, or instructions to access external systems. The bridge remains authenticated and loopback-only.
+
+## R3 ideas
 
 - Randomized larger task libraries, repeated trials and confidence intervals.
 - Actual *teaching episodes* with delayed transfer/retention measurement rather than prompt-only comparisons.
